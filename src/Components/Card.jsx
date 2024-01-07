@@ -34,20 +34,23 @@ export function Card({ product }) {
 
   return (
     <article
-      onClick={() => handleProductDetail(product)}
-      className='bg-white/80 backdrop-blur-lg hover:shadow-none transition-transform group h-full shadow-scaleDown bg-white border-solid border-gray border-[1px] rounded-lg flex flex-col justify-between pb-2'
+      className='bg-white/80 z-40 backdrop-blur-lg hover:shadow-none transition-transform group h-full shadow-scaleDown bg-white border-solid border-gray border-[1px] rounded-lg flex flex-col justify-between pb-2'
       aria-label='tile'>
       <div className='grid grid-cols-autoFit items-center justify-between'>
-        <div className='p-2 rounded-t-lg flex flex-col'>
+        <div
+          onClick={() => handleProductDetail(product)}
+          className='cursor-pointer p-2 rounded-t-lg flex flex-col'>
           <img
             className='object-contain rounded-lg'
             src={`${product.images[0]}`}
             alt=''
           />
         </div>
-        <button onClick={() => toggleLikeProduct(product)}>
+        <button
+          className='absolute left-4 z-50 bottom-32 flex justify-center items-center w-12 h-12'
+          onClick={() => toggleLikeProduct(product)}>
           <img
-            className='w-6 h-6 absolute left-4 bottom-32'
+            className='w-6 h-6'
             src={
               product.like
                 ? 'src/assets/corazonLiked.png'

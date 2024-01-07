@@ -24,28 +24,28 @@ export function Navbar() {
           <h2 className='font-semibold font-inter text-xl'>Shopi</h2>
         </li>
         <li>
-          <a className='text-sm' href='#'>
+          <a className='text-sm' href='/'>
             Todo
           </a>
         </li>
         <li>
-          <a className='text-sm' href='#'>
+          <a className='text-sm' href='/electronics'>
             Electrónica
           </a>
         </li>
         <li>
-          <a className='text-sm' href='#'>
-            Joyería
+          <a className='text-sm' href='/jewelry'>
+            jewelry
           </a>
         </li>
         <li>
-          <a className='text-sm' href='#'>
-            Ropa de Hombre
+          <a className='text-sm' href='/clothesMen'>
+            Clothes Men
           </a>
         </li>
         <li>
-          <a className='text-sm' href='#'>
-            Ropa de Mujer
+          <a className='text-sm' href='/clothesWoman'>
+            Clothes Woman
           </a>
         </li>
       </ul>

@@ -1,13 +1,13 @@
 import { UseProductsControl } from '../Hooks/ProductsControl'
-import PropTypes from 'prop-types'
+import PropType from 'prop-types'
 
-export function SearchProduct({ productsRef }) {
+export function SearchProduct({ products }) {
   const { addProductList } = UseProductsControl()
 
   const changeProduct = e => {
     const data = e.target.value
 
-    const productsFilterBySearch = productsRef.filter(item => {
+    const productsFilterBySearch = products.filter(item => {
       return item.title.toLowerCase().includes(data.toLowerCase())
     })
 
@@ -34,5 +34,5 @@ export function SearchProduct({ productsRef }) {
 }
 
 SearchProduct.propTypes = {
-  productsRef: PropTypes.array
+  products: PropType.array
 }
