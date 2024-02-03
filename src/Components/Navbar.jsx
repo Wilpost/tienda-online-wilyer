@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { UseProductsControl } from '../Hooks/ProductsControl'
 
 export function Navbar() {
@@ -6,7 +7,8 @@ export function Navbar() {
     toggleViewProductDetail,
     viewProductDetail,
     shoppingCardList,
-    viewShoppingCard
+    viewShoppingCard,
+    userLogged
   } = UseProductsControl()
 
   const handleShoppingCard = () => {
@@ -90,6 +92,62 @@ export function Navbar() {
               </span>
             </div>
           </button>
+        </li>
+      </ul>
+    </nav>
+  )
+}
+
+export function NavbarLogin() {
+  return (
+    <nav className='bg-white/80 backdrop-blur-lg z-50 flex pl-4 pr-4 h-[70px] top-0 mb-10 border-gray fixed border-solid border-b-[1px] w-full items-center justify-between p-1'>
+      <ul className='flex gap-3 items-center'>
+        <li>
+          <Link to='/' className='font-semibold font-inter text-xl'>
+            Shopi
+          </Link>
+        </li>
+        <li>
+          <Link className='text-sm' to='/'>
+            Todo
+          </Link>
+        </li>
+        <li>
+          <Link className='text-sm' to='/electronics'>
+            Electrónica
+          </Link>
+        </li>
+        <li>
+          <Link className='text-sm' to='/jewelry'>
+            jewelry
+          </Link>
+        </li>
+        <li>
+          <Link className='text-sm' to='/clothesMen'>
+            Clothes Men
+          </Link>
+        </li>
+        <li>
+          <Link className='text-sm' to='/clothesWoman'>
+            Clothes Woman
+          </Link>
+        </li>
+      </ul>
+
+      <ul className='flex gap-3  items-center'>
+        <li>
+          <Link
+            className='text-sm bg-zinc-100 p-3 rounded-lg text-black'
+            to='/login'>
+            Login
+          </Link>
+        </li>
+        <li>
+          <Link
+            className='text-sm p-3 text-white font-medium rounded-lg bg-buttonColor'
+            to='/sign-up'>
+            Sign Up
+          </Link>
         </li>
       </ul>
     </nav>

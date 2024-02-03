@@ -1,3 +1,4 @@
+import { IS_INVALID_URL } from '../Constants/consts'
 import { UseProductsControl } from '../Hooks/ProductsControl'
 
 export function ShoppingCard() {
@@ -25,7 +26,7 @@ export function ShoppingCard() {
     <aside
       className={
         viewShoppingCard
-          ? 'h-[500px] relative top-12 w-[45%] p-5 z-50 right-3 flex flex-col'
+          ? 'mt-12 relative top-12 w-[45%] p-5 z-50 right-3 flex flex-col'
           : 'hidden'
       }>
       <div
@@ -58,7 +59,11 @@ export function ShoppingCard() {
                     <div className='flex items-center gap-2 w-full'>
                       <img
                         className='w-12 h-12 rounded-lg'
-                        src={`${item.images[0]}`}
+                        src={`${
+                          IS_INVALID_URL(item.images[0])
+                            ? item.images[0]
+                            : 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png'
+                        }`}
                         alt=''
                       />
                       <div className='h-full flex items-start gap-1'>

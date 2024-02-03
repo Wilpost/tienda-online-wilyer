@@ -1,0 +1,47 @@
+import { useState } from 'react'
+import { useUserControl } from './usersControl'
+
+export function useSubmitForm() {
+  const [userRepited, setUserRepited] = useState(false)
+  const [emtyCampts, setEmtyCampts] = useState(false)
+  const { addUserAccount, usersRegisters, setViewModalLogged, viewModaLogged } =
+    useUserControl()
+
+  const handleSubmit = event => {
+    event.preventDefault()
+    const form = event.target
+    const data = new FormData(form)
+
+    const email = data.get('email')
+    const password = data.get('password')
+    const username = data.get('username')
+    const id = crypto.randomUUID()
+
+    if (usersRegisters.length > 0) {
+      setEmtyCampts(false)
+
+      const isAlredyUserAdded = usersRegisters.some(
+        item => item.email === email
+      )
+
+      if (isAlredyUserAdded) {
+        setUserRepited(isAlredyUserAdded)
+        return
+      }
+    }
+
+    setViewModalLogged(!viewModaLogged)
+    setUserRepited(false)
+    setEmtyCampts(false)
+    addUserAccount({ id, username, email, password })
+    form.reset()
+  }
+
+  return {
+    handleSubmit,
+    setUserRepited,
+    setEmtyCampts,
+    userRepited,
+    emtyCampts
+  }
+}

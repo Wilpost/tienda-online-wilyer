@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import productsReducer from './productsSlice'
+import usersReducer from './usersSlice'
 
 const persistStateInStorage = store => next => action => {
   next(action)
@@ -10,10 +11,20 @@ const persistStateInStorage = store => next => action => {
   )
 }
 
+const addUserAccount = store => next => action => {
+  next(action)
+
+  localStorage.setItem(
+    'users__account__state',
+    JSON.stringify(store.getState().users)
+  )
+}
+
 export const store = configureStore({
   reducer: {
-    products: productsReducer
+    products: productsReducer,
+    users: usersReducer
   },
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(persistStateInStorage)
+    getDefaultMiddleware().concat(addUserAccount, persistStateInStorage)
 })

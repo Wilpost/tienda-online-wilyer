@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router'
-import App from '../App'
+import { Login, SignUp } from '../Pages/Form'
+import { Home } from '../Pages/Home'
 
 // 1. Definir las rutas de la app utilizando el componente Route
 // 2. Y envolverlo con el componente padre Routes
@@ -14,11 +15,13 @@ import App from '../App'
 export function Roots() {
   return (
     <Routes>
-      <Route path='/' element={<App />} />
+      <Route path='/' element={<Home />} />
       <Route path='/electronics' element={<h1>Electronics</h1>} />
       <Route path='/jewelry' element={<h1>jewelry</h1>} />
       <Route path='/clothesMen' element={<h1>Clothes Men</h1>} />
       <Route path='/clothesWoman' element={<h1>Clothes Woman</h1>} />
+      <Route path='/login' element={<Login />} />
+      <Route path='/sign-up' element={<SignUp />} />
     </Routes>
   )
 }
