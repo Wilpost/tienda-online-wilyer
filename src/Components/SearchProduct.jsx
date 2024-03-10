@@ -2,7 +2,7 @@ import { UseProductsControl } from '../Hooks/ProductsControl'
 import PropType from 'prop-types'
 import { useRef } from 'react'
 
-export function SearchProduct() {
+export function SearchProduct () {
   const { addProductList, productsList } = UseProductsControl()
   const productsRef = useRef(productsList)
 

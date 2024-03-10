@@ -21,12 +21,14 @@ const usersSlice = createSlice({
       state.usersRegisters.push(action.payload)
     },
     setUserLogged: (state, action) => {
+      console.log(action.payload)
       state.userLogged = action.payload
     },
     viewModal: (state, action) => {
       state.viewModaLogged = action.payload
     },
     setDataUserLogged: (state, action) => {
+      console.log('data user!')
       state.dataUserLogged = action.payload
     }
   }

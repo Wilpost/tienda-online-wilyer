@@ -1,13 +1,17 @@
 import { useState } from 'react'
 import { useUserControl } from './usersControl'
+import { db } from '../lib/firebase/firebase'
+import { addDoc, collection } from 'firebase/firestore'
 
 export function useSubmitForm() {
+  const [viewPassword, setViewPassword] = useState(false)
   const [userRepited, setUserRepited] = useState(false)
+  const [error, setError] = useState(false)
   const [emtyCampts, setEmtyCampts] = useState(false)
   const { addUserAccount, usersRegisters, setViewModalLogged, viewModaLogged } =
     useUserControl()
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault()
     const form = event.target
     const data = new FormData(form)
@@ -16,6 +20,9 @@ export function useSubmitForm() {
     const password = data.get('password')
     const username = data.get('username')
     const id = crypto.randomUUID()
+
+    await addDoc(collection(db, 'users'), { id, email, password, username })
+    console.log('as')
 
     if (usersRegisters.length > 0) {
       setEmtyCampts(false)
@@ -42,6 +49,10 @@ export function useSubmitForm() {
     setUserRepited,
     setEmtyCampts,
     userRepited,
-    emtyCampts
+    emtyCampts,
+    viewPassword,
+    error,
+    setError,
+    setViewPassword
   }
 }

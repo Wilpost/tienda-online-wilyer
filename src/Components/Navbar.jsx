@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { UseProductsControl } from '../Hooks/ProductsControl'
+import { useUserControl } from '../Hooks/usersControl'
 
 export function Navbar() {
   const {
@@ -7,9 +8,9 @@ export function Navbar() {
     toggleViewProductDetail,
     viewProductDetail,
     shoppingCardList,
-    viewShoppingCard,
-    userLogged
+    viewShoppingCard
   } = UseProductsControl()
+  const { dataUserLogged, isLoggedTheUser } = useUserControl()
 
   const handleShoppingCard = () => {
     if (viewProductDetail) {
@@ -19,65 +20,76 @@ export function Navbar() {
     toggleViewShoppingCard(true)
   }
 
+  const logoutUser = () => {
+    window.location.replace('http://localhost:5173/login')
+    isLoggedTheUser(false)
+  }
+
   return (
     <nav className='bg-white/80 backdrop-blur-lg z-50 flex pl-4 pr-4 h-[70px] top-0 mb-10 border-gray fixed border-solid border-b-[1px] w-full items-center justify-between p-1'>
       <ul className='flex gap-3 items-center'>
         <li>
-          <h2 className='font-semibold font-inter text-xl'>Shopi</h2>
+          <Link to='/' className='font-semibold font-inter text-xl'>
+            Shopi
+          </Link>
         </li>
         <li>
-          <a className='text-sm' href='/'>
+          <Link className='text-sm' href='/'>
             Todo
-          </a>
+          </Link>
         </li>
         <li>
-          <a className='text-sm' href='/electronics'>
+          <Link className='text-sm' href='/electronics'>
             Electrónica
-          </a>
+          </Link>
         </li>
         <li>
-          <a className='text-sm' href='/jewelry'>
+          <Link className='text-sm' href='/jewelry'>
             jewelry
-          </a>
+          </Link>
         </li>
         <li>
-          <a className='text-sm' href='/clothesMen'>
+          <Link className='text-sm' href='/clothesMen'>
             Clothes Men
-          </a>
+          </Link>
         </li>
         <li>
-          <a className='text-sm' href='/clothesWoman'>
+          <Link className='text-sm' href='/clothesWoman'>
             Clothes Woman
-          </a>
+          </Link>
         </li>
       </ul>
 
       <ul className='flex gap-3  items-center'>
         <li>
-          <a className='text-sm text-buttonColor p-1 rounded-lg' href='#'>
-            example@gmail.com
-          </a>
+          <Link className='text-sm text-buttonColor p-1 rounded-lg' href='#'>
+            {dataUserLogged.email}
+          </Link>
         </li>
         <li>
-          <a className='text-sm' href='#'>
+          <Link className='text-sm' href='#'>
             Mis Ordenes
-          </a>
+          </Link>
         </li>
         <li>
-          <a className='text-sm' href='#'>
+          <Link className='text-sm' href='#'>
             Mi cuenta
-          </a>
+          </Link>
         </li>
         <li>
-          <a className='text-sm' href='#'>
-            Iniciar sesión
-          </a>
+          <button
+            onClick={() => logoutUser()}
+            className='text-sm text-buttonColor p-1 rounded-lg'
+          >
+            Log out
+          </button>
         </li>
         <li>
           <button
             onClick={() => handleShoppingCard()}
             className='flex items-center gap-1'
-            href='#'>
+            href='#'
+          >
             <img
               className='w-6 h-6 flex flex-col'
               src={
@@ -138,14 +150,16 @@ export function NavbarLogin() {
         <li>
           <Link
             className='text-sm bg-zinc-100 p-3 rounded-lg text-black'
-            to='/login'>
+            to='/login'
+          >
             Login
           </Link>
         </li>
         <li>
           <Link
             className='text-sm p-3 text-white font-medium rounded-lg bg-buttonColor'
-            to='/sign-up'>
+            to='/sign-up'
+          >
             Sign Up
           </Link>
         </li>

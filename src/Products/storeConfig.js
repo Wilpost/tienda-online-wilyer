@@ -5,7 +5,7 @@ import usersReducer from './usersSlice'
 const persistStateInStorage = store => next => action => {
   next(action)
 
-  localStorage.setItem(
+  window.localStorage.setItem(
     'products__state',
     JSON.stringify(store.getState().products)
   )
@@ -14,7 +14,7 @@ const persistStateInStorage = store => next => action => {
 const addUserAccount = store => next => action => {
   next(action)
 
-  localStorage.setItem(
+  window.localStorage.setItem(
     'users__account__state',
     JSON.stringify(store.getState().users)
   )

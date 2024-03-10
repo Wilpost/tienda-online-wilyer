@@ -9,7 +9,7 @@ const DEFAULT_STATE = {
 }
 
 const initialState = (() => {
-  const dataStorage = localStorage.getItem('products__state')
+  const dataStorage = window.localStorage.getItem('products__state')
 
   return dataStorage ? JSON.parse(dataStorage) : DEFAULT_STATE
 })()
@@ -19,11 +19,7 @@ const productSlice = createSlice({
   initialState,
   reducers: {
     addProductsToList: (state, action) => {
-      const products = action.payload.map(item => {
-        return { ...item, like: false }
-      })
-
-      state.productsList = products
+      state.productsList = action.payload
     },
     addProductToCard: (state, action) => {
       const productsExistToCard = state.shoppingCardList.some(item => {

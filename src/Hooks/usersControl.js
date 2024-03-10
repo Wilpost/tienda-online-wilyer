@@ -8,9 +8,8 @@ import { useAppDispatch, useAppSelector } from './store'
 
 export function useUserControl() {
   const dispatch = useAppDispatch()
-  const { usersRegisters, userLogged, viewModaLogged } = useAppSelector(
-    state => state.users
-  )
+  const { usersRegisters, userLogged, viewModaLogged, dataUserLogged } =
+    useAppSelector(state => state.users)
 
   const addUserAccount = value => {
     dispatch(registerUser(value))
@@ -34,6 +33,7 @@ export function useUserControl() {
     setViewModalLogged,
     addUserLogged,
     userLogged,
+    dataUserLogged,
     viewModaLogged,
     usersRegisters
   }

@@ -1,14 +1,24 @@
 import { Link } from 'react-router-dom'
 import { useSubmitForm } from '../Hooks/useSubmitForm'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useUserControl } from '../Hooks/usersControl'
+import { STYLE_INPUT_ERROR } from '../Constants/consts'
+import {
+  IcontError,
+  NotViewPassword,
+  ViewPassword
+} from '../Components/icons/Icons'
 
 export function SignUp() {
   const {
-    handleSubmit,
     userRepited,
-    setUserRepited,
     emtyCampts,
+    error,
+    viewPassword,
+    handleSubmit,
+    setViewPassword,
+    setError,
+    setUserRepited,
     setEmtyCampts
   } = useSubmitForm()
   const inputEmail = useRef()
@@ -30,6 +40,7 @@ export function SignUp() {
           'border-[1px]',
           'border-red-600'
         )
+        setError(true)
       } else {
         inputEmail.current.classList.add(
           'bg-zinc-100',
@@ -40,6 +51,7 @@ export function SignUp() {
           'placeholder:text-buttonColor',
           'border-none'
         )
+        setError(false)
       }
 
       if (inputUsername.current.value.length === 0) {
@@ -49,6 +61,7 @@ export function SignUp() {
           'border-[1px]',
           'border-red-600'
         )
+        setError(true)
       } else {
         inputUsername.current.classList.add(
           'bg-zinc-100',
@@ -59,6 +72,7 @@ export function SignUp() {
           'placeholder:text-buttonColor',
           'border-none'
         )
+        setError(false)
       }
 
       if (inputPassword.current.value.length === 0) {
@@ -68,6 +82,7 @@ export function SignUp() {
           'peer:text-red-600',
           'border-red-600'
         )
+        setError(true)
       } else {
         inputPassword.current.classList.add(
           'bg-zinc-100',
@@ -78,10 +93,10 @@ export function SignUp() {
           'placeholder:text-buttonColor',
           'border-none'
         )
+        setError(false)
       }
 
       setEmtyCampts(true)
-
       return
     }
 
@@ -94,7 +109,7 @@ export function SignUp() {
 
   return (
     <section className='w-full h-screen flex items-center pt-36 p-20 gap-12 justify-center bg-loginBackground'>
-      <div className='hidden bg-buttonColor w-[420px] ml-24 rounded-full h-96 blur-3xl opacity-30'></div>
+      <div className='hidden bg-buttonColor w-[420px] ml-24 rounded-full h-96 blur-3xl opacity-30' />
 
       <aside className='shadow-xl rounded-lg w-[500px] gap-12 bg-white flex flex-col items-start justify-center p-7'>
         <h2 className='font-bold text-3xl w-full text-center h-full'>
@@ -103,16 +118,15 @@ export function SignUp() {
 
         <form
           onSubmit={e => handleClick(e)}
-          className='h-[370px] w-full flex justify-center flex-col gap-5 -mb-6'>
+          className='h-[370px] w-full flex justify-center flex-col gap-5 -mb-6 relative overflow-hidden'
+        >
           <div className='w-full'>
             <label className='peer flex flex-col text-zinc-500' id='email'>
               Username
             </label>
             <input
               ref={inputUsername}
-              className={
-                'bg-zinc-100 w-full outline-none p-2 rounded-lg placeholder:text-buttonColor'
-              }
+              className='bg-zinc-100 w-full outline-none p-2 rounded-lg placeholder:text-buttonColor'
               type='text'
               name='username'
               placeholder='Username'
@@ -123,7 +137,8 @@ export function SignUp() {
             <label
               className={`${userRepited ? 'text-red-600' : ''}
               peer flex flex-col text-zinc-500`}
-              id='email'>
+              id='email'
+            >
               Email
             </label>
             <input
@@ -152,15 +167,27 @@ export function SignUp() {
             </label>
             <input
               ref={inputPassword}
-              type='password'
+              type={viewPassword ? 'text' : 'password'}
               name='password'
               className={`${
-                userRepited
-                  ? 'border-[1px] border-red-600 shadow-errorInput'
-                  : ''
+                userRepited ? STYLE_INPUT_ERROR : ''
               }bg-zinc-100 w-full outline-none p-2 rounded-lg placeholder:text-buttonColor`}
               placeholder='password'
             />
+
+            <figure
+              onClick={() => {
+                setViewPassword(!viewPassword)
+              }}
+              title='view password'
+              className='absolute right-2 cursor-pointer top-[210px]'
+            >
+              {viewPassword ? (
+                <NotViewPassword errorColor={error} />
+              ) : (
+                <ViewPassword errorColor={error} />
+              )}
+            </figure>
           </div>
 
           {emtyCampts ? (
@@ -186,24 +213,36 @@ export function SignUp() {
 }
 
 export function Login() {
-  const { userLogged, isLoggedTheUser, addUserLogged, usersRegisters } =
-    useUserControl()
+  const { error, setError, viewPassword, setViewPassword } = useSubmitForm()
+  const [userDoNotExist, setUserNotExist] = useState(false)
+  const [validPassword, setValidPassword] = useState(false)
+  const { isLoggedTheUser, addUserLogged, usersRegisters } = useUserControl()
+
   const handleSubmitUserLogged = e => {
     e.preventDefault()
     const form = e.target
     const data = new FormData(form)
-    const { password } = Object.fromEntries(data)
+    const userData = Object.fromEntries(data)
 
-    const user = usersRegisters.find(item => item.email === email)
+    const user = usersRegisters.find(item => item.email === userData.email)
 
-    addUserLogged(user)
-    isLoggedTheUser(true)
-    window.location.replace('http://localhost:5173/')
+    if (user !== undefined) {
+      if (userData.password !== user.password) {
+        setValidPassword(true)
+      } else {
+        addUserLogged(user)
+        isLoggedTheUser(true)
+        window.location.replace('http://localhost:5173/')
+      }
+    } else {
+      setUserNotExist(true)
+      setError(true)
+    }
   }
 
   return (
     <section className='w-full h-screen flex items-center pt-36 p-20 gap-12 justify-center bg-loginBackground'>
-      <div className='hidden bg-buttonColor w-[420px] ml-24 rounded-full h-96 blur-3xl opacity-30'></div>
+      <div className='hidden bg-buttonColor w-[420px] ml-24 rounded-full h-96 blur-3xl opacity-30' />
 
       <aside className='shadow-xl rounded-lg w-[500px] gap-12 bg-white flex flex-col items-start justify-center p-7'>
         <div className='h-full  flex flex-col w-full justify-center gap-4'>
@@ -214,51 +253,91 @@ export function Login() {
 
         <form
           onSubmit={e => handleSubmitUserLogged(e)}
-          className='h-[270px] w-full flex justify-center flex-col gap-5'>
+          className='w-full h-full flex justify-center flex-col gap-5 relative overflow-hidden'
+        >
           <div className='w-full'>
             <label
               className={`
               peer flex flex-col text-zinc-500`}
-              id='email'>
+              id='email'
+            >
               Email
             </label>
             <input
-              className={
-                ' bg-zinc-100 w-full outline-none p-2 rounded-lg placeholder:text-buttonColor'
-              }
-              type='email'
+              className={`${
+                error ? STYLE_INPUT_ERROR : ''
+              } bg-zinc-100 w-full outline-none p-2 rounded-lg placeholder:text-buttonColor`}
+              onFocus={() => {
+                setUserNotExist(false)
+                setError(false)
+              }}
               name='email'
               placeholder='Email'
             />
-
-            {/* {userRepited ? (
-              <span className='text-red-600 text-sm mt-2 ml-2'>
-                El email no existe
-              </span>
-            ) : null} */}
           </div>
 
           <div className='w-full'>
-            <label className='peer flex flex-col text-zinc-500' id='password'>
+            <label className='flex flex-col text-zinc-500' id='password'>
               Password
             </label>
             <input
-              type='password'
+              type={viewPassword ? 'text' : 'password'}
               name='password'
-              className={
-                'bg-zinc-100 w-full outline-none p-2 rounded-lg placeholder:text-buttonColor'
-              }
+              onFocus={() => {
+                setUserNotExist(false)
+                setError(false)
+              }}
+              className={`${validPassword ? STYLE_INPUT_ERROR : ''} ${
+                error ? STYLE_INPUT_ERROR : ''
+              } bg-zinc-100 w-full outline-none peer p-2 rounded-lg placeholder:text-buttonColor`}
               placeholder='password'
             />
+
+            {validPassword && (
+              <div className='w-full h-full flex items-center gap-1'>
+                <IcontError />
+                <span
+                  className={`${
+                    userDoNotExist ? '' : 'p-2'
+                  } text-red-600 text-sm mt-[5px]`}
+                >
+                  La contraseña no es correcta
+                </span>
+              </div>
+            )}
+
+            <figure
+              onClick={() => {
+                setViewPassword(!viewPassword)
+              }}
+              title='view password'
+              className='absolute right-2 cursor-pointer top-[117px]'
+            >
+              {viewPassword ? (
+                <NotViewPassword errorColor={error} />
+              ) : (
+                <ViewPassword errorColor={error} />
+              )}
+            </figure>
           </div>
 
-          {/* {emtyCampts ? (
-            <span className='text-red-600 text-sm'>
-              Completa todos los campos
-            </span>
-          ) : null} */}
+          {userDoNotExist && (
+            <div className='w-full h-full flex items-center gap-1'>
+              <IcontError />
+              <span
+                className={`${
+                  userDoNotExist ? '' : 'p-2'
+                } text-red-600 text-sm mt-[5px]`}
+              >
+                El usuario no existe
+              </span>
+            </div>
+          )}
 
-          <button className='bg-buttonColor p-2 rounded-lg text-white'>
+          <button
+            type='submit'
+            className='bg-buttonColor p-2 rounded-lg text-white'
+          >
             Login
           </button>
 
