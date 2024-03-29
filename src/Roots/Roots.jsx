@@ -1,6 +1,9 @@
 import { Route, Routes } from 'react-router'
 import { Login, SignUp } from '../Pages/Form'
 import { Home } from '../Pages/Home'
+import { ElectronicsPage } from '../Pages/Electronica'
+import { Clothes } from '../Pages/RopaHombre'
+import { StakePage } from '../Pages/StakePage'
 
 // 1. Definir las rutas de la app utilizando el componente Route
 // 2. Y envolverlo con el componente padre Routes
@@ -12,14 +15,13 @@ import { Home } from '../Pages/Home'
 
 // 6. Puedo definir rutas hijas usando las semantica HTML padre e hijo, en este caso para definir una ruta hija debo envolver una nueva ruta con el componente Route, antes envolvimos la lista de rutas de la app en general, pero esta vez definimos rutas hijas de una ruta en concreto, envolvemos un nuevo Route dentro del Route que queremos agregar la ruta hija
 
-export function Roots() {
+export function Roots () {
   return (
     <Routes>
       <Route path='/' element={<Home />} />
-      <Route path='/electronics' element={<h1>Electronics</h1>} />
-      <Route path='/jewelry' element={<h1>jewelry</h1>} />
-      <Route path='/clothesMen' element={<h1>Clothes Men</h1>} />
-      <Route path='/clothesWoman' element={<h1>Clothes Woman</h1>} />
+      <Route path='/electronics' element={<ElectronicsPage />} />
+      <Route path='/skate' element={<StakePage />} />
+      <Route path='/clothesMen' element={<Clothes />} />
       <Route path='/login' element={<Login />} />
       <Route path='/sign-up' element={<SignUp />} />
     </Routes>

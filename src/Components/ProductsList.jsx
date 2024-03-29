@@ -1,18 +1,19 @@
-import { UseProductsControl } from '../Hooks/ProductsControl'
 import { Card } from './Card'
 
-export function ProductsLists() {
-  const { productsList } = UseProductsControl()
-
+export function ProductsLists({ productsList = [] }) {
   return (
-    <section className='pl-12 pr-12 w-full h-full grid gap-5 grid-cols-autoFit  justify-center items-center'>
-      {productsList.length > 0 ? (
-        productsList.map(item => {
-          return <Card product={item} key={item.id} />
-        })
-      ) : (
-        <span>No hay productos</span>
+    <>
+      <section className='w-full h-full grid gap-5 grid-cols-autoFit justify-center items-center'>
+        {productsList.length > 0 &&
+          productsList.map(item => {
+            return <Card product={item} key={item.id} />
+          })}
+      </section>
+      {!productsList.length > 0 && (
+        <span className='font-normal text-xl text-textColor text-center'>
+          No hay más resultados
+        </span>
       )}
-    </section>
+    </>
   )
 }

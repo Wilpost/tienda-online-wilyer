@@ -1,7 +1,7 @@
 import { IS_INVALID_URL } from '../Constants/consts'
 import { UseProductsControl } from '../Hooks/ProductsControl'
 
-export function ShoppingCard() {
+export const ShoppingCard = () => {
   const {
     viewShoppingCard,
     toggleViewShoppingCard,
@@ -12,10 +12,10 @@ export function ShoppingCard() {
   const totalPay =
     shoppingCardList.length > 0
       ? shoppingCardList
-          .map(item => {
-            return item.price
-          })
-          .reduce((curr, now) => curr + now)
+        .map(item => {
+          return item.price
+        })
+        .reduce((curr, now) => curr + now)
       : '0'
 
   const handleDeleteProduct = id => {
@@ -28,10 +28,14 @@ export function ShoppingCard() {
         viewShoppingCard
           ? 'mt-12 relative top-12 w-[45%] p-5 z-50 right-3 flex flex-col'
           : 'hidden'
-      }>
+      }
+    >
       <div
-        className='fixed overflow-hidden bg-white h-[590px] w-[30%] top-[80px] p-5 z-50
-      right-3 shadow-scaleDown rounded-lg flex flex-col'>
+        className='fixed overflow-hidden text-textColor bg-dark h-[590px] w-[30%] top-[80px] p-5 z-50
+      right-3 shadow-focusShadowInput rounded-lg flex flex-col'
+      >
+        <div className='w-[100px] h-[200px] absolute blur-[100px] opacity-[0.4] bg-[#815eadd9] right-[-51px] top-[-84px]' />
+        <div className='w-[100px] h-[200px] absolute blur-[100px] opacity-[0.4] bg-[#815eadd9] left-[-51px] bottom-[-84px]' />
         <div className='absolute w-full left-[93%] top-[7px]'>
           <button onClick={() => toggleViewShoppingCard(false)}>
             <img
@@ -44,18 +48,19 @@ export function ShoppingCard() {
 
         <div
           className='
-        w-full h-[70px] flex items-center justify-between mb-2'>
-          <h2 className='text-xl'>Mi carrito</h2>
+        w-full h-[70px] flex items-center justify-between mb-2'
+        >
+          <h2 className='text-xl font-normal'>Mi carrito</h2>
 
           <p className='text-buttonColor cursor-pointer'>view All</p>
         </div>
 
         <div className='overflow-auto h-[90%] relative flex gap-2 flex-col items-center'>
-          {shoppingCardList.length > 0 ? (
+          {shoppingCardList.length > 0 &&
             shoppingCardList.map(item => {
               return (
                 <div key={item.id} className='w-full'>
-                  <div className='hover:bg-gray p-2 w-full cursor-pointer transition-colors flex gap-2 items-center'>
+                  <div className='hover:bg-textColor hover:bg-opacity-5 rounded-lg p-2 w-full cursor-pointer transition-colors flex gap-2 items-center'>
                     <div className='flex items-center gap-2 w-full'>
                       <img
                         className='w-12 h-12 rounded-lg'
@@ -81,7 +86,8 @@ export function ShoppingCard() {
 
                       <button
                         className='w-5 h-5 flex items-center'
-                        onClick={() => handleDeleteProduct(item.id)}>
+                        onClick={() => handleDeleteProduct(item.id)}
+                      >
                         <img
                           src='src/assets/close.svg'
                           alt='icon from close shopping card'
@@ -89,11 +95,11 @@ export function ShoppingCard() {
                       </button>
                     </div>
                   </div>
-                  <hr className='text-gray' />
+                  <hr className='text-textColor opacity-20 mt-1' />
                 </div>
               )
-            })
-          ) : (
+            })}
+          {!shoppingCardList.length > 0 && (
             <h2>Aun no hay productos añadidos</h2>
           )}
         </div>

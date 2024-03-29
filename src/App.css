@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-[#f4f4f4];
+  @apply bg-[#121212];
   font-family: 'Roboto';
   /* background-color: #e03e3e; */
 }

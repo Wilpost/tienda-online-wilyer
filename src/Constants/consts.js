@@ -7,4 +7,4 @@ export const IS_INVALID_URL = url => {
 }
 
 export const STYLE_INPUT_ERROR =
-  'border-[1px] text-red-500 border-red-500 shadow-errorInput shadow-red-300'
+  'border-[1px] text-red-500 border-red-500 shadow-red-300'

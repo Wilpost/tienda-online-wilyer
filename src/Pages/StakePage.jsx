@@ -7,12 +7,12 @@ import { ProductsLists } from '../Components/ProductsList'
 import { useFecthingQuery } from '../Hooks/useFecthingQuery'
 import { UseProductsControl } from '../Hooks/ProductsControl'
 
-export const ElectronicsPage = () => {
+export const StakePage = () => {
   const { productsList } = UseProductsControl()
   const { hasNextPage, isFetching, fetchNextPage } = useFecthingQuery()
 
   const productElectronics = productsList.filter(
-    product => product.category.name === 'Electronics'
+    product => product.category.name === 'skate'
   )
 
   return (

@@ -1,4 +1,4 @@
-export function ViewPassword({ errorColor }) {
+export function ViewPassword ({ errorColor }) {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -6,7 +6,8 @@ export function ViewPassword({ errorColor }) {
       viewBox='0 0 24 24'
       strokeWidth='1.5'
       stroke='currentColor'
-      className={`${errorColor ? 'text-[#e03e3e]' : 'text-[#383ec5]'} w-6 h-6`}>
+      className={`${errorColor ? 'text-[#e03e3e]' : 'text-[#383ec5]'} w-6 h-6`}
+    >
       <path
         strokeLinecap='round'
         strokeLinejoin='round'
@@ -21,7 +22,24 @@ export function ViewPassword({ errorColor }) {
   )
 }
 
-export function NotViewPassword({ errorColor }) {
+export function MoreInfoIcon () {
+  return (
+    <svg
+      viewBox='0 0 24 24'
+      strokeWidth={1.5}
+      stroke='currentColor'
+      className='w-7 h-7 text-[#e2e2e2]'
+    >
+      <path
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        d='M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z'
+      />
+    </svg>
+  )
+}
+
+export function NotViewPassword ({ errorColor }) {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -29,7 +47,8 @@ export function NotViewPassword({ errorColor }) {
       viewBox='0 0 24 24'
       strokeWidth={1.5}
       stroke='currentColor'
-      className={`${errorColor ? 'text-[#e03e3e]' : 'text-[#383ec5]'} w-6 h-6`}>
+      className={`${errorColor ? 'text-[#e03e3e]' : 'text-[#383ec5]'} w-6 h-6`}
+    >
       <path
         strokeLinecap='round'
         strokeLinejoin='round'
@@ -39,7 +58,7 @@ export function NotViewPassword({ errorColor }) {
   )
 }
 
-export function IcontError() {
+export function IcontError () {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -47,7 +66,8 @@ export function IcontError() {
       viewBox='0 0 24 24'
       strokeWidth={1.5}
       stroke='currentColor'
-      className='w-6 h-6 text-white'>
+      className='w-6 h-6 text-neutral-800'
+    >
       <path
         strokeLinecap='round'
         strokeLinejoin='round'
