@@ -6,7 +6,8 @@ export default {
     extend: {
       backgroundImage: {
         loginBackground: 'url(public/BackgroundImage.png)',
-        promoBanner: 'url(public/Banner_Promo.png)'
+        promoBanner: 'url(public/banner_2_promo_calzado_black.png)',
+        promoBanner2: 'url(public/Banner_Promo.png)'
       },
       gridTemplateColumns: {
         autoFit: 'repeat(auto-fill, minmax(228px, 1fr))'
@@ -57,11 +58,20 @@ export default {
         '100%': {
           width: '100%'
         }
+      },
+      ping: {
+        '0%, 100%': {
+          background: 'opacity(0)'
+        },
+        '50%': {
+          background: 'opacity(0.5)'
+        }
       }
     },
     animation: {
       skeleton: 'loadSkeleton ease-out 2.3s infinite',
-      animationUnderline: 'animationUnderline ease-out 0.2s both'
+      animationUnderline: 'animationUnderline ease-out 0.2s both',
+      pingButton: 'ping ease-out 0.5s infinite'
     }
   },
   plugins: []

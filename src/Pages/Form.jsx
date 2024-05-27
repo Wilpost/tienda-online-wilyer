@@ -112,7 +112,7 @@ export function SignUp() {
   return (
     <section
       style={{ backgroundPositionX: '-34px' }}
-      className='w-full h-screen flex items-center bg-contain pt-36 p-20 gap-12 justify-center bg-loginBackground'
+      className='w-full h-screen flex items-center bg-contain bg-no-repeat pt-36 p-20 gap-12 justify-center bg-loginBackground'
     >
       <div className='hidden bg-buttonColor w-[420px] max-w-[420px] ml-24 rounded-full h-96 blur-3xl opacity-30' />
 
@@ -271,7 +271,7 @@ export function Login() {
   return (
     <section
       style={{ backgroundPositionX: '-34px' }}
-      className='w-full h-screen flex bg-contain bg-loginBackground items-center pt-36 p-20 gap-12 justify-center'
+      className='w-full h-screen flex bg-contain bg-loginBackground bg-no-repeat items-center pt-36 p-20 gap-12 justify-center'
     >
       <div className='hidden bg-buttonColor  w-[420px] ml-24 rounded-full h-96 blur-3xl opacity-30' />
 
@@ -299,7 +299,7 @@ export function Login() {
 
         <form
           onSubmit={e => handleSubmitUserLogged(e)}
-          className='w-full h-full flex justify-center flex-col gap-5 relative overflow-hidden'
+          className='w-full h-full flex justify-center flex-col gap-5'
         >
           <div className='w-full'>
             <label
@@ -322,7 +322,7 @@ export function Login() {
             />
           </div>
 
-          <div className='w-full'>
+          <div className='w-full relative overflow-hidden'>
             <label className='flex flex-col text-zinc-500' id='password'>
               Password
             </label>
@@ -380,8 +380,11 @@ export function Login() {
           <button
             type='button'
             onClick={() => loginWithGoogle()}
-            className='bg-[#333] border-[#313131] border-[1px] justify-center hover:bg-[#434343] transition p-2 flex gap-4 items-center rounded-lg text-white'
+            className='bg-[#333] border-[#3f3f3f] border-[1px] justify-center hover:bg-[#2b2b2b] transition p-2 flex gap-4 items-center rounded-lg relative text-white'
           >
+            <div className='w-[23px] animate-pingButton bg-[#6238964d] grid place-content-center h-[23px] rounded-full -top-[5px] absolute -right-[9px]'>
+              <div className='w-[15px] h-[15px]  inline-flex rounded-full bg-buttonColor animate-ping' />
+            </div>
             Continue with Google{' '}
             <img
               src='public/google.svg'
